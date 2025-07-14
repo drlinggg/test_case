@@ -1,7 +1,14 @@
 from fastapi import Query, Request, status
 from datetime import date
 
-from app.schemas import TimeSlotSchema, TimeIntervalSchema
+from app.schemas import (
+    TimeSlotSchema, 
+    TimeIntervalSchema,
+    ErrorResponse,
+    GatewayErrorResponse,
+    ObjectNotFoundResponse,
+    TimeoutErrorResponse
+)
 from app.models import TimeSlot, TimeInterval
 
 from .routers import schedule_router
@@ -10,6 +17,12 @@ from .routers import schedule_router
 @schedule_router.get(
     '/schedule/busy_slots',
     response_model=list[TimeIntervalSchema],
+    responses={
+        500: {"model": ErrorResponse, "description": "Internal Server Error"},
+        502: {"model": GatewayErrorResponse, "description": "todo"},
+        404: {"model": ObjectNotFoundResponse, "description": "todo"},
+        504: {"model": TimeoutErrorResponse, "description": "todo"},
+    },
     status_code=status.HTTP_200_OK,
 )
 async def get_busy_slots(
@@ -23,6 +36,12 @@ async def get_busy_slots(
 @schedule_router.get(
     '/schedule/free_slots',
     response_model=list[TimeIntervalSchema],
+    responses={
+        500: {"model": ErrorResponse, "description": "Internal Server Error"},
+        502: {"model": GatewayErrorResponse, "description": "todo"},
+        404: {"model": ObjectNotFoundResponse, "description": "todo"},
+        504: {"model": TimeoutErrorResponse, "description": "todo"},
+    },
     status_code=status.HTTP_200_OK,
 )
 async def get_free_slots(
@@ -36,6 +55,12 @@ async def get_free_slots(
 @schedule_router.get(
     '/schedule/is_slot_free',
     response_model=bool,
+    responses={
+        500: {"model": ErrorResponse, "description": "Internal Server Error"},
+        502: {"model": GatewayErrorResponse, "description": "todo"},
+        404: {"model": ObjectNotFoundResponse, "description": "todo"},
+        504: {"model": TimeoutErrorResponse, "description": "todo"},
+    },
     status_code=status.HTTP_200_OK,
 )
 async def is_slot_free(
@@ -49,6 +74,12 @@ async def is_slot_free(
 @schedule_router.get(
     '/schedule/find_free_slot',
     response_model=TimeSlotSchema,
+    responses={
+        500: {"model": ErrorResponse, "description": "Internal Server Error"},
+        502: {"model": GatewayErrorResponse, "description": "todo"},
+        404: {"model": ObjectNotFoundResponse, "description": "todo"},
+        504: {"model": TimeoutErrorResponse, "description": "todo"},
+    },
     status_code=status.HTTP_200_OK,
 )
 async def find_free_slot(

@@ -5,14 +5,17 @@ from app.models import TimeInterval, TimeSlot
 from app.logic import ScheduleService
 from app.http_clients import ObjectNotFoundError
 
+
 @pytest.fixture
 def mock_client():
     client = AsyncMock()
     return client
 
+
 @pytest.fixture
 def schedule_service(mock_client):
     return ScheduleService(mock_client)
+
 
 class TestMergeIntervals:
     def test_empty_list(self, schedule_service):
@@ -268,6 +271,6 @@ class TestFindFreeSlot:
         mock_client.get_day_timeslots.return_value = [
             TimeInterval(time(9, 0), time(18, 0))
         ]
-        
+       
         with pytest.raises(ObjectNotFoundError):
             await schedule_service.find_free_slot(interval)
