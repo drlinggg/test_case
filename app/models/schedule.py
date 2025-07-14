@@ -1,3 +1,7 @@
+"""
+Models are defined here
+"""
+
 from dataclasses import dataclass
 from datetime import time, date
 
@@ -16,7 +20,7 @@ class TimeInterval:
             start=str_to_time(schema.start),
             end=str_to_time(schema.end)
         )
-    
+
     def to_schema(self) -> TimeIntervalSchema:
         return TimeIntervalSchema(
             start=time_to_str(self.start),

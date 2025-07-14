@@ -1,3 +1,7 @@
+"""
+ScheduleClient for gathering data is defined here
+"""
+
 from datetime import date
 import pandas as pd
 from typing import List

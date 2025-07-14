@@ -1,5 +1,3 @@
-import dataclasses
-import os
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -18,7 +16,6 @@ def get_app(prefix: str = "/api") -> FastAPI:
 
     desc = "test_case"
 
-
     app = FastAPI(
         title="test_case",
         description=desc,
@@ -35,7 +32,7 @@ def get_app(prefix: str = "/api") -> FastAPI:
         app.include_router(route)
 
     app.add_middleware(
-        ExceptionHandlerMiddleware, 
+        ExceptionHandlerMiddleware,
         debug = True
     )
 

@@ -1,7 +1,4 @@
-import os
-import tempfile
 import typing as tp
-
 import uvicorn
 
 from app.utils import (

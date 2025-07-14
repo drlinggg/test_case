@@ -5,5 +5,4 @@ from .config import (
     AppConfig,
     TestCaseApiConfig
 )
-from .logging import configure_logging
 from .utils import *

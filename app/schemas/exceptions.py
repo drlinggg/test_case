@@ -1,3 +1,7 @@
+"""
+Response models for errors are defined here
+"""
+
 from typing import Optional
 from pydantic import BaseModel, Field
 

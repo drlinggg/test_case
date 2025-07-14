@@ -1,3 +1,7 @@
+"""
+Core logic is defined here
+"""
+
 from typing import List
 from datetime import date
 
@@ -15,6 +19,7 @@ class ScheduleService:
         schedule_client: ScheduleClient
     ):
         self.schedule_client = schedule_client
+
 
     def _merge_intervals(self, intervals: List[TimeInterval]) -> List[TimeInterval]:
         sorted_intervals = sorted(intervals, key=lambda x: x.start)
@@ -37,7 +42,8 @@ class ScheduleService:
     
         merged.append(TimeInterval(start=current_start, end=current_end))
         return merged
-    
+ 
+
     def _get_gaps_in_intervals(
         self, 
         intervals: List[TimeInterval], 
@@ -55,13 +61,6 @@ class ScheduleService:
 
         return gaps
 
-    def _find_gap_in_intervals(
-        self, 
-        intervals: List[TimeInterval], 
-        time_range: TimeInterval,
-        time_duration: int,
-    ) -> TimeInterval:
-        pass
 
     def _is_interval_in_intervals(
         self,

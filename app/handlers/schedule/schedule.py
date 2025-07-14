@@ -1,9 +1,10 @@
-from fastapi import Query, Request, status, Path
+from fastapi import Query, Request, status
 from datetime import date
 
-from .routers import schedule_router
 from app.schemas import TimeSlotSchema, TimeIntervalSchema
 from app.models import TimeSlot, TimeInterval
+
+from .routers import schedule_router
 
 
 @schedule_router.get(
@@ -68,4 +69,3 @@ async def find_free_slot(
 async def hire_me(
 ):
     return 't.me/abanakh'
-
