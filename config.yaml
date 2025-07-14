@@ -1,0 +1,6 @@
+app:
+  host: "0.0.0.0"
+  port: 8000
+schedule_client:
+  host: "https://ofc-test-01.tspb.su"
+  port: 443

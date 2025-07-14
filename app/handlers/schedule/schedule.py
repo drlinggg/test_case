@@ -1,0 +1,71 @@
+from fastapi import Query, Request, status, Path
+from datetime import date
+
+from .routers import schedule_router
+from app.schemas import TimeSlotSchema, TimeIntervalSchema
+from app.models import TimeSlot, TimeInterval
+
+
+@schedule_router.get(
+    '/schedule/busy_slots',
+    response_model=list[TimeIntervalSchema],
+    status_code=status.HTTP_200_OK,
+)
+async def get_busy_slots(
+    request: Request,
+    day: date,
+):
+    schedule_service = request.app.state.schedule_service
+    return [interval.to_schema() for interval in await schedule_service.get_busy_intervals(day)]
+
+
+@schedule_router.get(
+    '/schedule/free_slots',
+    response_model=list[TimeIntervalSchema],
+    status_code=status.HTTP_200_OK,
+)
+async def get_free_slots(
+    request: Request,
+    day: date,
+):
+    schedule_service = request.app.state.schedule_service
+    return [interval.to_schema() for interval in await schedule_service.get_free_intervals(day)]
+
+
+@schedule_router.get(
+    '/schedule/is_slot_free',
+    response_model=bool,
+    status_code=status.HTTP_200_OK,
+)
+async def is_slot_free(
+    request: Request,
+    time_slot: TimeSlotSchema = Query(..., description="todo"),
+):
+    schedule_service = request.app.state.schedule_service
+    return await schedule_service.is_slot_free(TimeSlot.from_schema(time_slot))
+
+
+@schedule_router.get(
+    '/schedule/find_free_slot',
+    response_model=TimeSlotSchema,
+    status_code=status.HTTP_200_OK,
+)
+async def find_free_slot(
+    request: Request,
+    start: str = Query(..., description="todo"),
+    end: str = Query(..., description="todo"),
+):
+
+    time_interval = TimeIntervalSchema(start=start,end=end)
+    schedule_service = request.app.state.schedule_service
+    return (await schedule_service.find_free_slot(TimeInterval.from_schema(time_interval))).to_schema()
+
+@schedule_router.post(
+    '/schedule/hire_me',
+    response_model=str,
+    status_code=status.HTTP_201_CREATED,
+)
+async def hire_me(
+):
+    return 't.me/abanakh'
+
